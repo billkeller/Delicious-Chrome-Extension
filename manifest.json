@@ -1,0 +1,18 @@
+{
+  "content_scripts": [
+    {
+      "js": [
+        "delicious_content_script.js"
+      ], 
+      "matches": [
+        "http://*/*"
+      ]
+    }
+  ], 
+  "name": "Del.icio.us Tools",
+  "version": "1.0",
+  "description": "Del.icio.us toolbar for Chrome",
+  "toolstrips": [
+    "my_toolstrip.html"
+  ]
+}
