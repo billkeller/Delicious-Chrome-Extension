@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script src="addDelicious.js"></script>
+    <style type="text/css">
+		div.toolstrip-button {
+		color: #000;
+		cursor: hand;
+		font: normal 12px helvetica, arial, verdana;
+		width: 150px;
+		padding: 6px;
+		border-bottom: 1px solid #eee;
+		}
+		div.toolstrip-button:last-child {border-bottom-style: none;}
+		div.toolstrip-button:hover {
+			background-color: #3274d0;
+			color: #fff;
+			}
+
+    </style>
+  </head>
+  <body>
+	<div class="toolstrip-button" onclick="add_delicious()">Save a new Bookmark</div>
+	<div class="toolstrip-button" onclick="window.open('http://del.icio.us/home/')">Bookmarks on Delicious</div>
+	<div class="toolstrip-button" onclick="window.open('http://del.icio.us/inbox/')">Delicious Inbox</div>
+  </body>
+</html>

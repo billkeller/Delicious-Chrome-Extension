@@ -12,7 +12,12 @@
   "name": "Del.icio.us Tools",
   "version": "1.0",
   "description": "Del.icio.us toolbar for Chrome",
-  "toolstrips": [
-    "my_toolstrip.html"
-  ]
+  "permissions": [
+    "tabs"
+  ],
+  "browser_action": {
+      "default_title": "Delicious",
+      "default_icon": "delicious.png",
+      "popup": { "path": "popup.html" }
+  }  
 }
