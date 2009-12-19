@@ -10,7 +10,7 @@
     }
   ], 
   "name": "Del.icio.us Tools",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Del.icio.us toolbar for Chrome",
   "permissions": [
     "tabs"
