@@ -6,7 +6,7 @@ var title;
  	chrome.tabs.getSelected( null , function(tab) {
  		url = (tab.url);
  		title = (tab.title);
- 		window.open(deliciousUrl + url + '&title=' + title +' ','deliciousuiv5','location=yes,links=no,scrollbars=no,toolbar=no,width=550,height=550');
+ 		window.open(deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) +' ','deliciousuiv5','location=yes,links=no,scrollbars=no,toolbar=no,width=550,height=550');
  	});
  }
 
