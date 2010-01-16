@@ -47,7 +47,9 @@ body.delicious {
 					text-decoration: none;
 					}
 				.delicious #bookmarks li a:visited {color: #515697;}
-					.delicious #bookmarks li a:hover {
+					.delicious #bookmarks li a:hover,
+					.delicious #bookmarks li a:active,
+					.delicious #bookmarks li a:focus {
 						color: #1259c7;
 						text-decoration: underline;
 						}
