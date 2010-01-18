@@ -1,0 +1,35 @@
+<html>
+<script>
+(function() {
+	
+	// Respond to messages passed from content script
+	chrome.extension.onRequest.addListener(
+		function(request, sender, sendResponse) {
+			if (request.url) {
+				addDelicious(request);
+			}
+		}
+	);
+	
+	// Show delicious pop-up window
+	addDelicious = function(conf) {
+		var c = conf || {},
+			doc = c.document || document,
+			url = c.url || doc.location,
+			title = c.title || doc.title,
+			w = c.width || 550,
+			h = c.height || 550,
+			deliciousUrl = c.deliciousUrl || "http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url=";
+		
+		// Chrome's API for creating windows (rather than simple window.open)
+		chrome.windows.create({
+			url: deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title),
+			width: w,
+			height: h
+		});
+		
+	};
+
+})();
+</script>
+</html>

@@ -1,15 +1,23 @@
-var deliciousUrl = "http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url=";
-var url;
-var title;
 
-function add_delicious() {
-	chrome.tabs.getSelected(null,function(tab) {
-		url = (tab.url);
-		title = (tab.title);
-		window.open(deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) +' ','deliciousuiv5','location=yes,links=no,scrollbars=no,toolbar=no,width=550,height=550');
-	});
-}
+(function() {
+	
+	// Listen for keyboard shortcut
+	var bookmarkKeyCode = 'D'.charCodeAt(0);
+	window.addEventListener(
+		'keydown', 
+		function(e) {
+			if (e.which == bookmarkKeyCode && e.ctrlKey) {
+				triggerAddDelicious();
+			}
+		},
+		false
+	);
 
-//sample popup URL from Delicious: 
-//javascript:(function(){f='http://delicious.com/save?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&v=5&';a=function(){if(!window.open(f+'noui=1&jump=doclose','deliciousuiv5','location=yes,links=no,scrollbars=no,toolbar=no,width=550,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()
-
+	// Send request to background page (content script not permitted to create new windows)
+	triggerAddDelicious = function() {
+		chrome.extension.sendRequest({
+			url: document.location.toString(),
+			title: document.title
+		});
+	};
+})();
