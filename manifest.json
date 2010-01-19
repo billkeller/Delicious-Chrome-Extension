@@ -1,23 +1,26 @@
 {
-  "content_scripts": [
-    {
-      "js": [
-        "delicious_content_script.js"
-      ], 
-      "matches": [
-        "http://*/*"
-      ]
-    }
-  ], 
-  "name": "Del.icio.us Tools",
-  "version": "1.0.1",
-  "description": "Del.icio.us toolbar for Chrome",
-  "permissions": [
-    "tabs"
-  ],
-  "browser_action": {
-      "default_title": "Delicious",
-      "default_icon": "delicious.png",
-      "popup": "popup.html"
-  }  
+	"content_scripts": [
+		{
+			"js": ["addDelicious.js"],
+			"css": ["style.css"],
+			"matches": ["http://*/*","https://*/*"]
+		}
+	],
+	"name": "Del.icio.us Tools",
+	"version": "1.0.2",
+	"description": "Del.icio.us toolbar for Chrome",
+	"permissions": [
+		"http://delicious.com/*",
+		"http://feeds.delicious.com/*",
+		"tabs"
+	],
+	"options_page": "options.html",
+	"browser_action": {
+		"default_title": "Delicious",
+		"default_icon": "delicious.png",
+		"popup": "popup.html"
+	},
+	"background_page": "background.html",
+	"update_url": "http://delicious-chrome-extension.googlecode.com/files/updates.xml"
 }
+
