@@ -5,7 +5,7 @@
 	// Respond to messages passed from content script
 	chrome.extension.onRequest.addListener(
 		function(request, sender, sendResponse) {
-			if (request.url) {
+			if (request.type === 'addDelicious') {
 				addDelicious(request);
 			}
 		}
@@ -17,17 +17,17 @@
 			doc = c.document || document,
 			url = c.url || doc.location,
 			title = c.title || doc.title,
+			notes = c.notes || '',
 			w = c.width || 550,
 			h = c.height || 550,
 			deliciousUrl = c.deliciousUrl || "http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url=";
 		
 		// Chrome's API for creating windows (rather than simple window.open)
 		chrome.windows.create({
-			url: deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title),
+			url: deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) + '&notes=' + encodeURIComponent(notes),
 			width: w,
 			height: h
 		});
-		
 	};
 
 })();
