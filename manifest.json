@@ -1,7 +1,7 @@
 {
 	"content_scripts": [
 		{
-			"js": ["addDelicious.js"],
+			"js": ["addDelicious.js","getSelection.js"],
 			"css": ["style.css"],
 			"matches": ["http://*/*","https://*/*"]
 		}
@@ -12,9 +12,10 @@
 	"permissions": [
 		"http://delicious.com/*",
 		"http://feeds.delicious.com/*",
-		"tabs"
+		"tabs",
+		"http://*/",
+		"https://*/"
 	],
-	"options_page": "options.html",
 	"browser_action": {
 		"default_title": "Delicious",
 		"default_icon": "delicious.png",

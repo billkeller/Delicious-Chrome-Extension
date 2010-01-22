@@ -18,23 +18,26 @@
 	
 	// Trigger delicious window from popup.html
 	// Note: currently no way to retrieve selected text
-	addDeliciousFromPopup = function() {
+	// addDeliciousFromPopup is now set directly in popup.html
+	/*
+	addDeliciousFromPopup = function(text) {
 		chrome.tabs.getSelected(null, function(tab) {
 			chrome.extension.sendRequest({
 				type: 'addDelicious',
 				url: tab.url,
 				title: tab.title,
-				notes: ''
+				notes: text
 			});
 		});
 	};
+	*/
 
 	// Send request to background page (content script not permitted to create new windows)
 	addDeliciousFromContentScript = function() {
 		var url = document.location.toString(),
 			title = document.title,
 			notes = '',
-			notesMaxLength = 200;
+			notesMaxLength = 1000;
 		
 		if (window && window.getSelection) {
 			notes = window.getSelection().toString();

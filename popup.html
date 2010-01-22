@@ -1,6 +1,21 @@
 <html>
   <head>
-    <script src="addDelicious.js"></script>
+    <script> 
+	function startPopup(text) {
+		chrome.extension.getBackgroundPage().getSelection(addDeliciousFromPopup);
+	};
+	// Trigger delicious window from popup.html
+	function addDeliciousFromPopup(text) {
+		chrome.tabs.getSelected(null, function(tab) {
+			chrome.extension.sendRequest({
+				type: 'addDelicious',
+				url: tab.url,
+				title: tab.title,
+				notes: text
+			});
+		});
+	};
+    </script> 
     <style type="text/css">
 		div.toolstrip-button {
 		color: #000;
@@ -19,7 +34,7 @@
     </style>
   </head>
   <body>
-	<div class="toolstrip-button" onclick="addDeliciousFromPopup()">Save a new Bookmark</div>
+	<div class="toolstrip-button" onclick="startPopup()">Save a new Bookmark</div>
 	<div class="toolstrip-button" onclick="window.open('http://del.icio.us/home/')">Bookmarks on Delicious</div>
 	<div class="toolstrip-button" onclick="window.open('http://del.icio.us/inbox/')">Delicious Inbox</div>
   </body>
