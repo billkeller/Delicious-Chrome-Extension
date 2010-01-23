@@ -8,7 +8,7 @@
 	],
 	"name": "Delicious Tools",
 	"version": "1.0.2",
-	"description": "Adds a Del.icio.us button to your toolbar, providing very quick access to saving and browsing your links. Now with ctrl + D keyboard shortcut!",
+	"description": "Provides quick access to saving your Delicious bookmarks. Now with ctrl + D keyboard shortcut and selected text populates your notes field.",
 	"icons" : {"48": "delicious48.png", "128": "delicious128.png"
 	},
 	"permissions": [
