@@ -6,9 +6,11 @@
 			"matches": ["http://*/*","https://*/*"]
 		}
 	],
-	"name": "Del.icio.us Tools",
+	"name": "Delicious Tools",
 	"version": "1.0.2",
-	"description": "Del.icio.us toolbar for Chrome",
+	"description": "Adds a Del.icio.us button to your toolbar, providing very quick access to saving and browsing your links. Now with ctrl + D keyboard shortcut!",
+	"icons" : {"48": "delicious48.png", "128": "delicious128.png"
+	},
 	"permissions": [
 		"http://delicious.com/*",
 		"http://feeds.delicious.com/*",
@@ -21,7 +23,6 @@
 		"default_icon": "delicious.png",
 		"popup": "popup.html"
 	},
-	"background_page": "background.html",
-	"update_url": "http://delicious-chrome-extension.googlecode.com/files/updates.xml"
+	"background_page": "background.html"
 }
 
