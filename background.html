@@ -1,0 +1,55 @@
+<html>
+<script>
+var selection_callbacks = [];
+function getSelection(callback) { 
+	selection_callbacks.push(callback); 
+	chrome.tabs.executeScript(null, { file: "getSelection.js" });
+}; 
+chrome.extension.onRequest.addListener(function (request) { 
+	var callback = selection_callbacks.shift(); 
+	callback(request); 
+}); 
+
+(function() {
+	// Respond to messages passed from content script
+	chrome.extension.onRequest.addListener(
+		function(request, sender, sendResponse) {
+			if (request.type === 'addDelicious') {
+				addDelicious(request);
+			}
+		}
+	);
+	
+	// Show delicious pop-up window
+	addDelicious = function(conf) {
+		var c = conf || {},
+			doc = c.document || document,
+			url = c.url || doc.location,
+			title = c.title || doc.title,
+			notes = c.notes || '',
+			w = c.width || 550,
+			h = c.height || 550,
+			deliciousUrl = c.deliciousUrl || "http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url=",
+			fullUrl;
+		
+		fullUrl = deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) + '&notes=' + encodeURIComponent(notes);
+		
+		window.open(
+			fullUrl,
+			'deliciousuiv5',
+			'location=yes,links=no,scrollbars=no,toolbar=no,width=' + w.toString() + ',height=' + h.toString()
+		);
+
+		/*
+		// Chrome's API for creating windows (rather than simple window.open)
+		chrome.windows.create({
+			url: deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) + '&notes=' + encodeURIComponent(notes),
+			width: w,
+			height: h
+		});
+		*/
+	};
+
+})();
+</script>
+</html>
