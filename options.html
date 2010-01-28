@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+	<head> 
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+		<title></title> 
+		<link rel="StyleSheet" href="style.css" type="text/css" media="all">
+        <!-- Google-hosted jQuery --> 
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> 
+		<script type="text/javascript"> 
+		    $(document).ready(function() {
+				$(window).load(function(){
+					if(localStorage.getItem("username")) {
+						var username_stored = localStorage.getItem("username");
+						$('#username').val(username_stored);
+					}
+					if(localStorage.getItem("tag")) {
+						var tag_stored = localStorage.getItem("tag");
+						$('#tag').val(tag_stored);
+					}
+				});
+				$('#save_options').submit(function(){
+					var username = $('#username').val();
+					var tag = $('#tag').val();
+					localStorage.setItem("username", username);
+					if(!localStorage.getItem("username")) {
+						// alert('Please enter a username');
+					} else {
+						// alert('Username is set as ' + localStorage.getItem("username"));
+					}
+					localStorage.setItem("tag", tag);
+					if(!localStorage.getItem("tag")) {
+						// alert('No tag is set');
+					} else {
+						// alert('Tag is set as ' + localStorage.getItem("tag"));
+					}
+					return false;
+				});
+		    });
+		</script> 
+	</head> 
+<body class="delicious options"> 
+	<div id="page"> 
+		<form id="save_options" method="get">
+			<fieldset>
+				<legend>Display bookmarks in your extension:</legend>
+				<h3>Delicious username:</h3>
+				<input type="text" name="username" id="username" value="" />
+				<h3>Tag to display:</h3>
+				<input type="text" name="tag" id="tag" value="" />
+				<p><small>Tag intersection (tag+tag) is supported. Leave empty to fetch all tags.</small></p>
+				<p><input type="submit" value="Save Options" /></p>
+			</fieldset>
+		</form>
+	</div> 
+</body> 
+</html>
