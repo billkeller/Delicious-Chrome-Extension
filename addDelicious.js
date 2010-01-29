@@ -8,7 +8,7 @@
 	window.addEventListener(
 		'keydown', 
 		function(e) {
-			if (e.which == bookmarkKeyCode && e.ctrlKey) {
+			if (e.which == bookmarkKeyCode && e.altKey) {
 				console.log('pressed ^d');
 				addDeliciousFromContentScript();
 			}
