@@ -1,4 +1,5 @@
 (function() {
+	var bookmarkKeyCode;
 	function getVariableFromLocalStorage(variableName,defaultValue) {
 		this[variableName] = defaultValue;
 		var onResponse = function (response) {
@@ -12,12 +13,13 @@
 		chrome.extension.sendRequest({'action': 'getFromLocalStorage', 'variableName': variableName}, onResponse)
 	};
 
+
 	// Listen for key press
 	window.addEventListener(
 		'keydown',
 		function(e) {
 			// bookmarkKeyCode is always returning "undefined" not sure how to grab it from getVariableFromLocalStorage function
-			var bookmarkKeyCode = getVariableFromLocalStorage('bookmarkKeyCode','D');
+			getVariableFromLocalStorage('bookmarkKeyCode','D');
 			console.log(bookmarkKeyCode);
 			if (e.which == bookmarkKeyCode && e.altKey) {
 				console.log('pressed ^d');
