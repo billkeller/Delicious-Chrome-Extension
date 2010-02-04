@@ -11,18 +11,30 @@
 		   $(document).ready(function() {
 				$(window).load(function(){
 					if(localStorage.getItem("bookmarkKeyChar")) {
-						var bookmarkKeyChar_stored = localStorage.getItem("bookmarkKeyChar");
+						var bookmarkKeyChar_stored = localStorage.getItem("bookmarkKeyChar"),
+							bookmarkSpecialKey_stored = localStorage.getItem("bookmarkSpecialKey");
 						$('#bookmarkKeyChar').val(bookmarkKeyChar_stored);
+						if (bookmarkSpecialKey_stored === null) {
+							// Default to alt
+							$('#bookmarkSpeiclaKey').val('alt');
+						} else {
+							$('#bookmarkSpecialKey').val(bookmarkSpecialKey_stored);
+						}
 					}
 				});
 				$('#save_options').submit(function(){
-					var bookmarkKeyChar = $('#bookmarkKeyChar').val();
+					var bookmarkKeyChar = $('#bookmarkKeyChar').val(),
+						bookmarkSpecialKey = $('#bookmarkSpecialKey').val();
+
 					localStorage.setItem("bookmarkKeyChar", bookmarkKeyChar);
+					localStorage.setItem("bookmarkSpecialKey", bookmarkSpecialKey);
+
 					if(!localStorage.getItem("bookmarkKeyChar")) {
 						alert('Please enter a Keyboard shortcut');
 					} else {
-						alert('Keyboard shortcut now set to ' + localStorage.getItem("bookmarkKeyChar"));
+						alert('Keyboard shortcut now set to ' + localStorage.getItem("bookmarkKeyChar") + ', specialKey set to ' + localStorage.getItem('bookmarkSpecialKey'));
 					}
+
 					return false;
 				});
 				$('#bookmarkKeyChar').keyup(function() {
@@ -39,7 +51,12 @@
 		<form id="save_options" method="get">
 			<fieldset>
 				<legend>Keyboard Shortcut:</legend>
-				<input type="text" name="bookmarkKeyChar" id="bookmarkKeyChar" value="" />
+				<select name="bookmarkSpecialKey" id="bookmarkSpecialKey">
+					<option value="alt">Alt</option>
+					<option value="ctrl">Control</option>
+					<option value="meta">Meta</option>
+				</select>
+				<input type="text" name="bookmarkKeyChar" id="bookmarkKeyChar" value="" size="1" maxlength="1" />
 				<p><input type="submit" value="Save Options" /></p>
 			</fieldset>
 		</form>

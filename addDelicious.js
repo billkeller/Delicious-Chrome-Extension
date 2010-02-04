@@ -1,6 +1,7 @@
 (function() {
 	var localSettings = {
-		bookmarkKeyChar: 'D'
+		bookmarkKeyChar: 'D',
+		bookmarkSpecialKey: 'alt'
 	};
 
 	function getVariableFromLocalStorage(variableName,defaultValue) {
@@ -17,12 +18,18 @@
 	};
 
 	getVariableFromLocalStorage('bookmarkKeyChar', localSettings.bookmarkKeyChar);
+	getVariableFromLocalStorage('bookmarkSpecialKey', localSettings.bookmarkSpecialKey);
 
 	// Listen for key press
 	window.addEventListener(
 		'keydown',
 		function(e) {
-			if (e.which == localSettings.bookmarkKeyChar.charCodeAt(0) && e.altKey) {
+			if ((e.which == localSettings.bookmarkKeyChar.charCodeAt(0))
+					&& (
+						(localSettings.bookmarkSpecialKey == 'alt' && e.altKey)
+						|| (localSettings.bookmarkSpecialKey == 'ctrl' && e.ctrlKey)
+						|| (localSettings.bookmarkSpecialKey == 'meta' && e.metaKey)
+					)) {
 				console.log('pressed ^d (or whatever key)');
 				addDeliciousFromContentScript();
 			}
