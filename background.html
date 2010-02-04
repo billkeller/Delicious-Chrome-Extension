@@ -7,8 +7,10 @@ chrome.extension.onRequest.addListener(
 			switch (message.action) {
 				case 'getFromLocalStorage':
 					console.log(message.variableName + ': ' + localStorage [message.variableName]);
-					sendResponse(localStorage[message.variableName]);
-			break;
+					if (localStorage[message.variableName] !== null) {
+						sendResponse(localStorage[message.variableName]);
+					}
+					break;
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 	function getVariableFromLocalStorage(variableName,defaultValue) {
 		localSettings[variableName] = defaultValue;
 		var onResponse = function (response) {
-			 if (response != null) {
+			 if (response !== null) {
 				localSettings[variableName] = response;
 				console.log('localSettings.' + variableName + ' is set to: ' + response);
 			 } else {
