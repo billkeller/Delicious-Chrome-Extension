@@ -1,28 +1,29 @@
 (function() {
-	var bookmarkKeyCode;
+	var localSettings = {
+		bookmarkKeyChar: 'D'
+	};
+
 	function getVariableFromLocalStorage(variableName,defaultValue) {
-		this[variableName] = defaultValue;
+		localSettings[variableName] = defaultValue;
 		var onResponse = function (response) {
 			 if (response != null) {
-				this[variableName] = response;
-				console.log(variableName + ' is set to: ' + response);
+				localSettings[variableName] = response;
+				console.log('localSettings.' + variableName + ' is set to: ' + response);
 			 } else {
-				console.log(variableName + ' not found in localStorage!  ' + response);
-		 }
+				console.log('localSettings.' + variableName + ' not found in localStorage!  ' + response);
+			}
 		}
 		chrome.extension.sendRequest({'action': 'getFromLocalStorage', 'variableName': variableName}, onResponse)
 	};
 
+	getVariableFromLocalStorage('bookmarkKeyChar', localSettings.bookmarkKeyChar);
 
 	// Listen for key press
 	window.addEventListener(
 		'keydown',
 		function(e) {
-			// bookmarkKeyCode is always returning "undefined" not sure how to grab it from getVariableFromLocalStorage function
-			getVariableFromLocalStorage('bookmarkKeyCode','D');
-			console.log(bookmarkKeyCode);
-			if (e.which == bookmarkKeyCode && e.altKey) {
-				console.log('pressed ^d');
+			if (e.which == localSettings.bookmarkKeyChar.charCodeAt(0) && e.altKey) {
+				console.log('pressed ^d (or whatever key)');
 				addDeliciousFromContentScript();
 			}
 		},

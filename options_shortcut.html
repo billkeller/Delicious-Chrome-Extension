@@ -10,18 +10,18 @@
 		<script type="text/javascript">
 		   $(document).ready(function() {
 				$(window).load(function(){
-					if(localStorage.getItem("bookmarkKeyCode")) {
-						var bookmarkKeyCode_stored = localStorage.getItem("bookmarkKeyCode");
-						$('#bookmarkKeyCode').val(bookmarkKeyCode_stored);
+					if(localStorage.getItem("bookmarkKeyChar")) {
+						var bookmarkKeyChar_stored = localStorage.getItem("bookmarkKeyChar");
+						$('#bookmarkKeyChar').val(bookmarkKeyChar_stored);
 					}
 				});
 				$('#save_options').submit(function(){
-					var bookmarkKeyCode = $('#bookmarkKeyCode').val();
-					localStorage.setItem("bookmarkKeyCode", bookmarkKeyCode);
-					if(!localStorage.getItem("bookmarkKeyCode")) {
+					var bookmarkKeyChar = $('#bookmarkKeyChar').val();
+					localStorage.setItem("bookmarkKeyChar", bookmarkKeyChar);
+					if(!localStorage.getItem("bookmarkKeyChar")) {
 						alert('Please enter a Keyboard shortcut');
 					} else {
-						alert('Keyboard shortcut now set to ' + localStorage.getItem("bookmarkKeyCode"));
+						alert('Keyboard shortcut now set to ' + localStorage.getItem("bookmarkKeyChar"));
 					}
 					return false;
 				});
@@ -33,7 +33,7 @@
 		<form id="save_options" method="get">
 			<fieldset>
 				<legend>Keyboard Shortcut:</legend>
-				<input type="text" name="bookmarkKeyCode" id="bookmarkKeyCode" value="" />
+				<input type="text" name="bookmarkKeyChar" id="bookmarkKeyChar" value="" />
 				<p><input type="submit" value="Save Options" /></p>
 			</fieldset>
 		</form>
