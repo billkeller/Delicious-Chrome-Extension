@@ -1,5 +1,5 @@
 body.delicious {
-	font: normal 12px helvetica, arial, verdana;
+	font: normal 12px arial, helvetica, arial, verdana;
 	color: #000;
 	overflow: hidden;
 	border: 0px;
@@ -23,10 +23,23 @@ body.delicious {
 			background-color: #3274d0;
 			color: #fff;
 			}
+	/*************************
+	OPTIONS pages
+	**************************/
 	.delicious .options h3 {
 		font-weight: bold;
 		margin-bottom: 9px;
 		}
+		.options small {font-size: 10px; font-family: verdana;}
+		.message p {padding: 4px;}
+			p.fail {
+				background-color: #ff0000;
+				color: #000;
+				}
+			p.success {
+				background-color: #ffff99;
+				color: #000;
+				}
 	.delicious #bookmarks {
 		padding: 6px;
 		}

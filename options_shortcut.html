@@ -16,10 +16,13 @@
 						$('#bookmarkKeyChar').val(bookmarkKeyChar_stored);
 						if (bookmarkSpecialKey_stored === null) {
 							// Default to alt
-							$('#bookmarkSpeiclaKey').val('alt');
+							$('#bookmarkSpecialKey').val('alt');
 						} else {
 							$('#bookmarkSpecialKey').val(bookmarkSpecialKey_stored);
 						}
+					} else {
+						$('#bookmarkKeyChar').val('D');
+						$('#bookmarkSpecialKey').val('alt');
 					}
 				});
 				$('#save_options').submit(function(){
@@ -30,9 +33,9 @@
 					localStorage.setItem("bookmarkSpecialKey", bookmarkSpecialKey);
 
 					if(!localStorage.getItem("bookmarkKeyChar")) {
-						alert('Please enter a Keyboard shortcut');
+						$('.message').html('<p class=\"fail\">Please enter a Keyboard shortcut</p>');
 					} else {
-						alert('Keyboard shortcut now set to ' + localStorage.getItem("bookmarkKeyChar") + ', specialKey set to ' + localStorage.getItem('bookmarkSpecialKey'));
+						$('.message').html('<p class=\"success\">Keyboard shortcut now set to <strong>' + localStorage.getItem("bookmarkSpecialKey") + ' ' + localStorage.getItem('bookmarkKeyChar') + '</strong><br /><small>Open tabs require a refresh</small>');
 					}
 
 					return false;
@@ -59,6 +62,9 @@
 				</select>
 				<input type="text" name="bookmarkKeyChar" id="bookmarkKeyChar" value="" size="1" maxlength="1" />
 				<p><input type="submit" value="Save Options" /></p>
+				<div class="message">
+
+				</div>
 			</fieldset>
 		</form>
 	</div>

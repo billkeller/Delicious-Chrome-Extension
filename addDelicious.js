@@ -30,7 +30,7 @@
 						|| (localSettings.bookmarkSpecialKey == 'ctrl' && e.ctrlKey)
 						|| (localSettings.bookmarkSpecialKey == 'meta' && e.metaKey)
 					)) {
-				console.log('pressed ^d (or whatever key)');
+				console.log('pressed '+ localSettings.bookmarkSpecialKey + ' ' + localSettings.bookmarkKeyChar);
 				addDeliciousFromContentScript();
 			}
 		},
