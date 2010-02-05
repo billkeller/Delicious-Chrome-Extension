@@ -9,9 +9,9 @@
 		var onResponse = function (response) {
 			 if (response !== null) {
 				localSettings[variableName] = response;
-				console.log('localSettings.' + variableName + ' is set to: ' + response);
+				// console.log('localSettings.' + variableName + ' is set to: ' + response);
 			 } else {
-				console.log('localSettings.' + variableName + ' not found in localStorage!  ' + response);
+				// console.log('localSettings.' + variableName + ' not found in localStorage!  ' + response);
 			}
 		}
 		chrome.extension.sendRequest({'action': 'getFromLocalStorage', 'variableName': variableName}, onResponse)
@@ -30,7 +30,9 @@
 						|| (localSettings.bookmarkSpecialKey == 'ctrl' && e.ctrlKey)
 						|| (localSettings.bookmarkSpecialKey == 'meta' && e.metaKey)
 					)) {
-				console.log('pressed '+ localSettings.bookmarkSpecialKey + ' ' + localSettings.bookmarkKeyChar);
+				// console.log('pressed '+ localSettings.bookmarkSpecialKey + ' ' + localSettings.bookmarkKeyChar);
+				// prevent the default, doesn't seem to overwrite the windows (Meta) key
+				e.preventDefault();
 				addDeliciousFromContentScript();
 			}
 		},
