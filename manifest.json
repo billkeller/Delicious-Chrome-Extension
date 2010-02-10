@@ -7,10 +7,11 @@
 		}
 	],
 	"name": "Delicious Tools",
-	"version": "1.0.3",
-	"description": "Quick access to saving Delicious bookmarks. Alt + D (Option + D on Mac) keyboard shortcut. Selected text populates your notes field.",
+	"version": "1.0.4",
+	"description": "Quick access to saving Delicious bookmarks. Customizable keyboard shortcut. Selected text populates your notes field.",
 	"icons" : {"48": "delicious48.png", "128": "delicious128.png"
 	},
+	"options_page": "options_shortcut.html",
 	"permissions": [
 		"http://delicious.com/*",
 		"http://feeds.delicious.com/*",

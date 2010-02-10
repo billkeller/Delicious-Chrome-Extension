@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title></title>
+		<link rel="StyleSheet" href="style.css" type="text/css" media="all">
+        <!-- Google-hosted jQuery -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+				$(window).load(function(){
+					if(localStorage.getItem("bookmarkKeyChar")) {
+						var bookmarkKeyChar_stored = localStorage.getItem("bookmarkKeyChar"),
+							bookmarkSpecialKey_stored = localStorage.getItem("bookmarkSpecialKey");
+						$('#bookmarkKeyChar').val(bookmarkKeyChar_stored);
+						if (bookmarkSpecialKey_stored === null) {
+							// Default to alt
+							$('#bookmarkSpecialKey').val('alt');
+						} else {
+							$('#bookmarkSpecialKey').val(bookmarkSpecialKey_stored);
+						}
+					} else {
+						$('#bookmarkKeyChar').val('D');
+						$('#bookmarkSpecialKey').val('alt');
+					}
+				});
+				$('#save_options').submit(function(){
+					var bookmarkKeyChar = $('#bookmarkKeyChar').val(),
+						bookmarkSpecialKey = $('#bookmarkSpecialKey').val();
+
+					localStorage.setItem("bookmarkKeyChar", bookmarkKeyChar);
+					localStorage.setItem("bookmarkSpecialKey", bookmarkSpecialKey);
+
+					if(!localStorage.getItem("bookmarkKeyChar")) {
+						$('.message').html('<p class=\"fail\">Please enter a Keyboard shortcut</p>');
+					} else {
+						$('.message').html('<p class=\"success\">Keyboard shortcut now set to <strong>' + localStorage.getItem("bookmarkSpecialKey") + ' ' + localStorage.getItem('bookmarkKeyChar') + '</strong><br /><small>Open tabs require a refresh</small>');
+					}
+
+					return false;
+				});
+				$('#bookmarkKeyChar').keyup(function() {
+					var len = $(this).val().length;
+					if (len > 1) {
+						$(this).val($(this).val().substr(len - 1, 1));
+					}
+					$(this).val($(this).val().toUpperCase());
+				});
+		    });
+		</script>
+	</head>
+<body class="delicious options">
+	<div id="page">
+		<form id="save_options" method="get">
+			<fieldset>
+				<legend>Keyboard Shortcut:</legend>
+				<select name="bookmarkSpecialKey" id="bookmarkSpecialKey">
+					<option value="alt">Alt</option>
+					<option value="ctrl">Control</option>
+					<option value="meta">Command (Mac)</option>
+				</select>
+				<input type="text" name="bookmarkKeyChar" id="bookmarkKeyChar" value="" size="1" maxlength="1" />
+				<p><input type="submit" value="Save Options" /></p>
+				<div class="message">
+
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>
