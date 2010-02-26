@@ -23,9 +23,15 @@ body.delicious {
 			background-color: #3274d0;
 			color: #fff;
 			}
+		.hide {display: none;}	
 	/*************************
 	OPTIONS pages
 	**************************/
+	fieldset {margin-bottom: 27px;}
+	button {
+		display: block;
+		margin: 9px 0;
+		}
 	.delicious .options h3 {
 		font-weight: bold;
 		margin-bottom: 9px;
@@ -40,6 +46,31 @@ body.delicious {
 				background-color: #ffff99;
 				color: #000;
 				}
+		/***************************************************************************
+		customize menu items
+			-labels are very similar to toolstrip-button, above
+		****************************************************************************/
+		.delicious #save_popup_options label {
+			display: block;
+			color: #fff;
+			cursor: hand;
+			font: normal 12px helvetica, arial, verdana;
+			width: 150px;
+			padding: 6px;
+			}
+			.delicious #save_popup_options tr.disabled label {color: #000;}
+		.delicious #save_popup_options tr td,
+		.delicious #save_popup_options tr.disabled:hover td,
+		.delicious #save_popup_options tr:hover td,
+		.delicious #save_popup_options tr:hover td label{
+			background-color: #3274d0;
+			color: #fff;
+			}
+		.delicious #save_popup_options tr.disabled td {background-color: #fff;}
+		
+		.delicious table,
+		.delicious table td {border: 1px solid #eee;}
+				
 	.delicious #bookmarks {
 		padding: 6px;
 		}

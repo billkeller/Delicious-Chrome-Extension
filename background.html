@@ -2,11 +2,11 @@
 <script>
 chrome.extension.onRequest.addListener(
 	function(message, sender, sendResponse) {
-		console.log("background loaded");
+		// console.log("background loaded");
 		if (message.action && sender.tab) {
 			switch (message.action) {
 				case 'getFromLocalStorage':
-					console.log(message.variableName + ': ' + localStorage [message.variableName]);
+					console.log('bg page says: ' + message.variableName + ': ' + localStorage [message.variableName]);
 					if (localStorage[message.variableName] !== null) {
 						sendResponse(localStorage[message.variableName]);
 					}
@@ -16,16 +16,33 @@ chrome.extension.onRequest.addListener(
 	}
 );
 
-
 var selection_callbacks = [];
 function getSelection(callback) {
 	selection_callbacks.push(callback);
 	chrome.tabs.executeScript(null, { file: "getSelection.js" });
 };
-chrome.extension.onRequest.addListener(function (request) {
-	var callback = selection_callbacks.shift();
-	callback(request);
-});
+// currently throwing an 'undefined is not an function' error
+chrome.extension.onRequest.addListener(
+	function(request) {
+		var callback = selection_callbacks.shift();
+		callback(request);
+	}
+);
+
+ // Hacking my way through yet another localStorage retrieval, this time for use in popup.html
+ function getItem(key) {
+    var value;
+    console.log('Get Item:' + key);
+    try {
+      value = window.localStorage.getItem(key);
+    }catch(e) {
+      console.log("Error inside getItem() for key:" + key);
+	  console.log(e);
+	  value = "null";
+    }
+    console.log("Returning value: " + value);
+    return value;
+  }
 
 (function() {
 	// Respond to messages passed from content script
@@ -57,14 +74,6 @@ chrome.extension.onRequest.addListener(function (request) {
 			'location=yes,links=no,scrollbars=no,toolbar=no,width=' + w.toString() + ',height=' + h.toString()
 		);
 
-		/*
-		// Chrome's API for creating windows (rather than simple window.open)
-		chrome.windows.create({
-			url: deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) + '&notes=' + encodeURIComponent(notes),
-			width: w,
-			height: h
-		});
-		*/
 	};
 
 })();

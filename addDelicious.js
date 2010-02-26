@@ -1,8 +1,8 @@
 (function() {
 	var localSettings = {
 		bookmarkKeyChar: 'D',
-		bookmarkSpecialKey: 'alt'
-	};
+		bookmarkSpecialKey: 'alt',
+		};
 
 	function getVariableFromLocalStorage(variableName,defaultValue) {
 		localSettings[variableName] = defaultValue;
@@ -19,7 +19,7 @@
 
 	getVariableFromLocalStorage('bookmarkKeyChar', localSettings.bookmarkKeyChar);
 	getVariableFromLocalStorage('bookmarkSpecialKey', localSettings.bookmarkSpecialKey);
-
+	
 	// Listen for key press
 	window.addEventListener(
 		'keydown',

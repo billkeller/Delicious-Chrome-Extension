@@ -10,9 +10,15 @@
 		<script type="text/javascript">
 		   $(document).ready(function() {
 				$(window).load(function(){
+					// if user has saved options before, there WILL be a val set for bookmarkKeyChar
 					if(localStorage.getItem("bookmarkKeyChar")) {
 						var bookmarkKeyChar_stored = localStorage.getItem("bookmarkKeyChar"),
-							bookmarkSpecialKey_stored = localStorage.getItem("bookmarkSpecialKey");
+							bookmarkSpecialKey_stored = localStorage.getItem("bookmarkSpecialKey"),
+							// Menu Options
+							bookmarkShowMenuSave_stored = localStorage.getItem("bookmarkShowMenuSave"),
+							bookmarkShowMenuBookmarks_stored = localStorage.getItem("bookmarkShowMenuBookmarks"),
+							bookmarkShowMenuInbox_stored = localStorage.getItem("bookmarkShowMenuInbox"),
+							bookmarkShowMenuNetwork_stored = localStorage.getItem("bookmarkShowMenuNetwork");
 						$('#bookmarkKeyChar').val(bookmarkKeyChar_stored);
 						if (bookmarkSpecialKey_stored === null) {
 							// Default to alt
@@ -20,24 +26,56 @@
 						} else {
 							$('#bookmarkSpecialKey').val(bookmarkSpecialKey_stored);
 						}
+						if (bookmarkShowMenuSave_stored !== 'on') {
+							$('#show_menu_save').attr('checked','');
+							$('#show_menu_save').parent('td').parent('tr').addClass('disabled');
+						}
+						if (bookmarkShowMenuBookmarks_stored !== 'on') {
+							$('#show_menu_bookmarks').attr('checked','');
+							$('#show_menu_bookmarks').parent('td').parent('tr').addClass('disabled');
+						}
+						if (bookmarkShowMenuInbox_stored !== 'on') {
+							$('#show_menu_inbox').attr('checked','');
+							$('#show_menu_inbox').parent('td').parent('tr').addClass('disabled');
+						}
+						if (bookmarkShowMenuNetwork_stored !== 'on') {
+							$('#show_menu_network').attr('checked','');
+							$('#show_menu_network').parent('td').parent('tr').addClass('disabled');
+						}
+						// Set default options
 					} else {
 						$('#bookmarkKeyChar').val('D');
 						$('#bookmarkSpecialKey').val('alt');
+						$('#show_menu_save').attr('checked','checked');
+						$('#show_menu_bookmarks').attr('checked','checked');
+						$('#show_menu_inbox').attr('checked','checked');
+						$('#show_menu_network').attr('checked','checked');
 					}
 				});
 				$('#save_options').submit(function(){
 					var bookmarkKeyChar = $('#bookmarkKeyChar').val(),
-						bookmarkSpecialKey = $('#bookmarkSpecialKey').val();
+						bookmarkSpecialKey = $('#bookmarkSpecialKey').val(),
+						// Menu Options
+						bookmarkShowMenuSave = $('#show_menu_save').val(),
+						bookmarkShowMenuBookmarks = $('#show_menu_bookmarks').val(),
+						bookmarkShowMenuInbox = $('#show_menu_inbox').val(),
+						bookmarkShowMenuNetwork = $('#show_menu_network').val();
 
-					localStorage.setItem("bookmarkKeyChar", bookmarkKeyChar);
-					localStorage.setItem("bookmarkSpecialKey", bookmarkSpecialKey);
-
+						localStorage.setItem("bookmarkKeyChar", bookmarkKeyChar);
+						localStorage.setItem("bookmarkSpecialKey", bookmarkSpecialKey);
+						// Menu Options
+						localStorage.setItem("bookmarkShowMenuSave", bookmarkShowMenuSave);
+						localStorage.setItem("bookmarkShowMenuBookmarks", bookmarkShowMenuBookmarks);
+						localStorage.setItem("bookmarkShowMenuInbox", bookmarkShowMenuInbox);
+						localStorage.setItem("bookmarkShowMenuNetwork", bookmarkShowMenuNetwork);
+						
 					if(!localStorage.getItem("bookmarkKeyChar")) {
-						$('.message').html('<p class=\"fail\">Please enter a Keyboard shortcut</p>');
+						$('#keyboard_shortcut .message').html('<p class=\"fail\">Please enter a Keyboard shortcut</p>');
 					} else {
-						$('.message').html('<p class=\"success\">Keyboard shortcut now set to <strong>' + localStorage.getItem("bookmarkSpecialKey") + ' ' + localStorage.getItem('bookmarkKeyChar') + '</strong><br /><small>Open tabs require a refresh</small>');
-					}
-
+						$('#keyboard_shortcut .message').html('<p class=\"success\">Keyboard shortcut now set to <strong>' + localStorage.getItem("bookmarkSpecialKey") + ' ' + localStorage.getItem('bookmarkKeyChar') + '</strong><br /><small>Open tabs require a refresh</small>');
+					};
+					$('#save_popup_options .message').html('<p class=\"success\">Your menu has been updated<br /><small>Tip: Remove all menu items and your button will initiate the Delicious popup</small></p>');
+					
 					return false;
 				});
 				$('#bookmarkKeyChar').keyup(function() {
@@ -47,26 +85,51 @@
 					}
 					$(this).val($(this).val().toUpperCase());
 				});
+				$('table tr label').click(function() {
+					$(this).parent('td').parent('tr').toggleClass("disabled");
+				});
+				
 		    });
 		</script>
 	</head>
 <body class="delicious options">
-	<div id="page">
-		<form id="save_options" method="get">
-			<fieldset>
-				<legend>Keyboard Shortcut:</legend>
-				<select name="bookmarkSpecialKey" id="bookmarkSpecialKey">
-					<option value="alt">Alt</option>
-					<option value="ctrl">Control</option>
-					<option value="meta">Command (Mac)</option>
-				</select>
-				<input type="text" name="bookmarkKeyChar" id="bookmarkKeyChar" value="" size="1" maxlength="1" />
-				<p><input type="submit" value="Save Options" /></p>
-				<div class="message">
+	<form id="save_options" method="get">
+		<fieldset id="keyboard_shortcut">
+			<legend>Keyboard Shortcut:</legend>
+			<select name="bookmarkSpecialKey" id="bookmarkSpecialKey">
+				<option value="alt">Alt</option>
+				<option value="ctrl">Control</option>
+				<option value="meta">Command (Mac)</option>
+			</select>
+			<input type="text" name="bookmarkKeyChar" id="bookmarkKeyChar" value="" size="1" maxlength="1" />
+			<div class="message">
 
-				</div>
-			</fieldset>
-		</form>
-	</div>
+			</div>
+		</fieldset>
+
+		<fieldset id="save_popup_options">
+			<legend>Checked items show in your menu:</legend>
+			<table>
+				<tr>
+					<td><label for="show_menu_save">Save a new Bookmark</label></td><td><input type="checkbox" checked="checked" name="show_menu_save" id="show_menu_save" /></td>
+				</tr>
+				<tr>
+					<td><label for="show_menu_bookmarks">Bookmarks on Delicious</label></td><td><input type="checkbox" checked="checked" name="show_menu_bookmarks" id="show_menu_bookmarks" /></td>
+				</tr>
+				<tr>
+					<td><label for="show_menu_inbox">Delicious Inbox</label></td><td><input type="checkbox" checked="checked"  name="show_menu_inbox" id="show_menu_inbox" /></td>
+				</tr>
+				<tr>
+					<td><label for="show_menu_network">Delicious Network</label></td><td><input type="checkbox" checked="checked" name="show_menu_network" id="show_menu_network" /></td>
+				</tr>
+			</table>
+			<div class="message">
+
+			</div>
+		</fieldset>
+		<button type="submit">Save Options</button>
+
+	</form>
+
 </body>
 </html>

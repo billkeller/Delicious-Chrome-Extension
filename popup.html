@@ -1,26 +1,61 @@
 <html>
   <head>
-    <script> 
-	function startPopup(text) {
-		chrome.extension.getBackgroundPage().getSelection(addDeliciousFromPopup);
-	};
-	// Trigger delicious window
-	function addDeliciousFromPopup(text) {
-		chrome.tabs.getSelected(null, function(tab) {
-			chrome.extension.sendRequest({
-				type: 'addDelicious',
-				url: tab.url,
-				title: tab.title,
-				notes: text
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		function startPopup(text) {
+			chrome.extension.getBackgroundPage().getSelection(addDeliciousFromPopup);
+		};
+		// Trigger delicious window
+		function addDeliciousFromPopup(text) {
+			chrome.tabs.getSelected(null, function(tab) {
+				chrome.extension.sendRequest({
+					type: 'addDelicious',
+					url: tab.url,
+					title: tab.title,
+					notes: text
+				});
 			});
+		};
+     
+	 var key1 = "bookmarkShowMenuSave";
+	 var key2 = "bookmarkShowMenuBookmarks";
+	 var key3 = "bookmarkShowMenuInbox";
+	 var key4 = "bookmarkShowMenuNetwork";
+	  
+	  function populate() {
+		console.log('entered populate()');
+		val1 = getValue(key1);
+        val2 = getValue(key2);
+        val3 = getValue(key3);
+		val4 = getValue(key4);
+      }
+
+	function getValue(key) {
+		return chrome.extension.getBackgroundPage().getItem(key);
+      }
+
+	// Jquery 
+	 $(document).ready(function() {
+		$(window).load(function(){
+			populate();
+			if(val1 !== 'on') {$('#show_menu_save').remove();}
+			if(val2 !== 'on') {$('#show_menu_bookmarks').remove();}
+			if(val3 !== 'on') {$('#show_menu_inbox').remove();}
+			if(val4 !== 'on') {$('#show_menu_network').remove();}
+			// If ALL menu items are hidden initiate delicious popup onLoad
+			if((val1 !== 'on') && (val2 !== 'on') && (val3 !== 'on') && (val4 !== 'on')) {
+				startPopup();
+			}
 		});
-	};
-    </script>
-    <link rel="stylesheet" href="style.css" type="text/css"> 
+				
+	});
+</script>
+    <link rel="stylesheet" href="style.css" type="text/css">
   </head>
   <body class="delicious">
-	<div class="toolstrip-button" onclick="startPopup()">Save a new Bookmark</div>
-	<div class="toolstrip-button" onclick="window.open('http://del.icio.us/home/')">Bookmarks on Delicious</div>
-	<div class="toolstrip-button" onclick="window.open('http://del.icio.us/inbox/')">Delicious Inbox</div>
+	<div class="toolstrip-button" id="show_menu_save" onclick="startPopup()">Save a new Bookmark</div>
+	<div class="toolstrip-button" id="show_menu_bookmarks" onclick="window.open('http://del.icio.us/home/')">Bookmarks on Delicious</div>
+	<div class="toolstrip-button" id="show_menu_inbox" onclick="window.open('http://del.icio.us/inbox/')">Delicious Inbox</div>
+	<div class="toolstrip-button" id="show_menu_network" onclick="window.open('http://del.icio.us/network/')">Delicious Network</div>
   </body>
 </html>
