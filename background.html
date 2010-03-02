@@ -2,12 +2,14 @@
 <script>
 chrome.extension.onRequest.addListener(
 	function(message, sender, sendResponse) {
-		// console.log("background loaded");
+		console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+		// if (message.action && sender.tab) {
 		if (message.action && sender.tab) {
 			switch (message.action) {
 				case 'getFromLocalStorage':
 					console.log('bg page says: ' + message.variableName + ': ' + localStorage [message.variableName]);
 					if (localStorage[message.variableName] !== null) {
+						console.log(localStorage[message.variableName]);
 						sendResponse(localStorage[message.variableName]);
 					}
 					break;
@@ -23,26 +25,25 @@ function getSelection(callback) {
 };
 // currently throwing an 'undefined is not an function' error
 chrome.extension.onRequest.addListener(
-	function(request) {
+	function(request, sender, sendResponse) {
 		var callback = selection_callbacks.shift();
-		callback(request);
+			callback(request);
 	}
 );
 
- // Hacking my way through yet another localStorage retrieval, this time for use in popup.html
- function getItem(key) {
-    var value;
-    console.log('Get Item:' + key);
-    try {
-      value = window.localStorage.getItem(key);
-    }catch(e) {
-      console.log("Error inside getItem() for key:" + key);
-	  console.log(e);
-	  value = "null";
-    }
-    console.log("Returning value: " + value);
-    return value;
-  }
+// Hacking my way through yet another localStorage retrieval, this time for use in popup.html
+function getItem(key) {
+	var value;
+	console.log('Get Item:' + key);
+try {
+	value = window.localStorage.getItem(key);
+}catch(e) {
+	console.log("Error inside getItem() for key:" + key);
+	console.log(e);
+}
+console.log("Returning value: " + value);
+	return value;
+};
 
 (function() {
 	// Respond to messages passed from content script
