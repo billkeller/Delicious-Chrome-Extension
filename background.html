@@ -34,14 +34,17 @@ chrome.extension.onRequest.addListener(
 // Hacking my way through yet another localStorage retrieval, this time for use in popup.html
 function getItem(key) {
 	var value;
-	console.log('Get Item:' + key);
+	//console.log('Get Item:' + key);
 try {
 	value = window.localStorage.getItem(key);
+	if(value !== 'on') {
+		value = "off";
+	}	
 }catch(e) {
-	console.log("Error inside getItem() for key:" + key);
-	console.log(e);
+	//console.log("Error inside getItem() for key:" + key);
+	//console.log(e);
 }
-console.log("Returning value: " + value);
+//console.log("Returning value: " + value);
 	return value;
 };
 
