@@ -1,5 +1,13 @@
 <html>
 <script>
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+	// alert('tab has been updated');
+    if(changeInfo.status == "loading") {
+        if(tab.url == "http://www.delicious.com/save") {
+            chrome.tabs.remove(tabId);
+        }
+    }
+});
 chrome.extension.onRequest.addListener(
 	function(message, sender, sendResponse) {
 		console.log("background loaded");
