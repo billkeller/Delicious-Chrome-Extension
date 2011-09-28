@@ -1,16 +1,46 @@
 <html>
 <script>
+
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-	// alert('tab has been updated');
-    if(changeInfo.status == "loading") {
-        if(tab.url == "http://www.delicious.com/save") {
-            chrome.tabs.remove(tabId);
-        }
-    }
+	
+	if(changeInfo.status == "loading") {
+	
+		chrome.windows.getCurrent(function(w) {
+			chrome.tabs.getSelected(w.id,
+			function (response){
+				// alert(ourWindow);
+				// alert(response.id);
+				if(response.id == ourWindow) {
+					// You're here because this is the ID of the popup window our extension created
+					// alert('Found this puppy');
+		
+					if (typeof String.prototype.startsWith != 'function') {
+					  String.prototype.startsWith = function (str){
+						return this.slice(0, str.length) == str;
+					  };
+					}      
+			
+					var data = tab.url
+					var input = 'http://delicious.com/save?'
+					
+					if(data.startsWith(input)) {
+						// alert('This URL contains SAVE in it');
+					} else {
+						chrome.tabs.remove(tabId);
+					}
+				}
+			
+			
+			});
+		});	
+	
+	}
+	
 });
+
 chrome.extension.onRequest.addListener(
 	function(message, sender, sendResponse) {
-		console.log("background loaded");
+		// console.log("background loaded");
 		if (message.action && sender.tab) {
 			switch (message.action) {
 				case 'getFromLocalStorage':
@@ -36,7 +66,7 @@ chrome.extension.onRequest.addListener(function (request) {
 });
 
 (function() {
-	// Respond to messages passed from content script
+	// Respond to messages passed from addDelicous.js content script
 	chrome.extension.onRequest.addListener(
 		function(request, sender, sendResponse) {
 			if (request.type === 'addDelicious') {
@@ -59,20 +89,22 @@ chrome.extension.onRequest.addListener(function (request) {
 
 		fullUrl = deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) + '&notes=' + encodeURIComponent(notes);
 
-		window.open(
-			fullUrl,
-			'deliciousuiv5',
-			'location=yes,links=no,scrollbars=no,toolbar=no,width=' + w.toString() + ',height=' + h.toString()
-		);
-
-		/*
 		// Chrome's API for creating windows (rather than simple window.open)
 		chrome.windows.create({
-			url: deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) + '&notes=' + encodeURIComponent(notes),
+			url: fullUrl,
 			width: w,
-			height: h
+			height: h,
+			type: 'popup'
+			}, function() {
+				chrome.windows.getCurrent(function(window) {
+					chrome.tabs.getSelected(window.id,
+					function (response){
+						ourWindow = response.id
+						// alert('Our window has a tab id of: ' + ourWindow);
+					});
+				});				
 		});
-		*/
+		
 	};
 
 })();
