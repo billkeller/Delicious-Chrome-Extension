@@ -7,7 +7,7 @@
 		}
 	],
 	"name": "Delicious Tools",
-	"version": "1.5.0",
+	"version": "1.5.1",
 	"description": "Quick access to saving Delicious bookmarks. Customizable keyboard shortcut. Selected text populates your notes field.",
 	"icons" : {"48": "delicious48.png", "128": "delicious128.png"
 	},
