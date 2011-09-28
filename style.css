@@ -79,3 +79,14 @@ body.delicious {
 		color: #1259c7;
 		text-decoration: underline;
 		}
+/*-------------------------------
+The new Delicious login page
+--------------------------------*/
+#index.login #banner h1 {margin-left: 5px;}
+#index.login #banner .search-box {width: 230px;}
+#index.login .squares {background-position: 275% 18px; }
+#index.login .introMessage {
+	width: 540px;
+	margin-left: 5px;
+	}
+#index.login .introMessage fieldset {margin-left: 40px;}

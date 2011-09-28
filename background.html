@@ -21,10 +21,17 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 					}      
 			
 					var data = tab.url
-					var input = 'http://delicious.com/save?'
-					
-					if(data.startsWith(input)) {
-						// alert('This URL contains SAVE in it');
+					var saveURL = 'http://delicious.com/save?'
+					var registerURL = 'http://delicious.com/register'
+					var loginURL = 'http://delicious.com/login'
+					if(data.startsWith(saveURL) || data.startsWith(registerURL) || data.startsWith(loginURL)) {
+						// alert('Do not close our window');
+						if(data.startsWith(registerURL)) {
+							// If it's the register page, push them to the login page
+							// alert('register page');
+							chrome.tabs.update(tabId, {url: "http://delicious.com/login"});
+							// we edit the layout of the login page a bit in style.css
+						}
 					} else {
 						chrome.tabs.remove(tabId);
 					}
