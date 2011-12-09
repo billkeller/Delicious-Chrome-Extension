@@ -8,8 +8,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 		chrome.windows.getCurrent(function(w) {
 			chrome.tabs.getSelected(w.id,
 			function (response){
-				// alert(ourWindow);
-				// alert(response.id);
+				// alert('ourWindow: ' + ourWindow);
+				// alert('response id: '+ response.id);
 				if(response.id == ourWindow) {
 					// You're here because this is the ID of the popup window our extension created
 					// alert('Found this puppy');
@@ -21,6 +21,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 					}      
 			
 					var data = tab.url
+					var tldURL = 'http://delicious.com'
 					var saveURL = 'http://delicious.com/save?'
 					var registerURL = 'http://delicious.com/register'
 					var loginURL = 'http://delicious.com/login'
@@ -33,7 +34,15 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 							// we edit the layout of the login page a bit in style.css
 						}
 					} else {
-						chrome.tabs.remove(tabId);
+						// Double check that it's actually our popup, if not, exit
+						// What I'm founding now, is that windows CAN and DO share the same tab.id
+						// 
+						if(data.startsWith(tldURL)) {
+							chrome.tabs.remove(tabId);
+						} else {
+							// We're here by mistake
+							// alert('Whoops, don\'t close ME!');
+						}
 					}
 				}
 			
