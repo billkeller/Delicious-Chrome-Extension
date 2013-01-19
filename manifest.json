@@ -7,7 +7,9 @@
 		}
 	],
 	"name": "Delicious Tools",
-	"version": "1.5.2",
+	"version": "1.5.3",
+	"manifest_version": 2,
+	"content_security_policy": "default-src 'self';   script-src 'self' https://ajax.googleapis.com;   style-src 'self' 'unsafe-inline';   img-src 'self' data: chrome: filesystem:;   connect-src 'self' http: https: chrome-extension:;   frame-src http: https:",
 	"description": "Quick access to saving Delicious bookmarks. Customizable keyboard shortcut. Selected text populates your notes field.",
 	"icons" : {"48": "delicious48.png", "128": "delicious128.png"
 	},
@@ -24,6 +26,8 @@
 		"default_icon": "delicious.png",
 		"popup": "popup.html"
 	},
-	"background_page": "background.html"
+	"background": {
+		"scripts": ["background.js","options_shortcut.js"]
+	}
 }
 

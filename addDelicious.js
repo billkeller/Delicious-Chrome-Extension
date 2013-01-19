@@ -1,4 +1,4 @@
-(function() {
+
 	var localSettings = {
 		bookmarkKeyChar: 'D',
 		bookmarkSpecialKey: 'alt'
@@ -40,6 +40,7 @@
 	);
 
 	// Send request to background page (content script not permitted to create new windows)
+	// This one is running!
 	addDeliciousFromContentScript = function() {
 		var url = document.location.toString(),
 			title = document.title,
@@ -55,7 +56,6 @@
 		if (notes && notes.length > notesMaxLength) {
 			notes = notes.substring(0, notesMaxLength - 1);
 		}
-
 		chrome.extension.sendRequest({
 			type: 'addDelicious',
 			url: url,
@@ -63,4 +63,4 @@
 			notes: notes
 		});
 	};
-})();
+

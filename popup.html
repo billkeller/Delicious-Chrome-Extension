@@ -1,24 +1,8 @@
 <html>
   <head>
-    <script> 
-	function startPopup(text) {
-		chrome.extension.getBackgroundPage().getSelection(addDeliciousFromPopup);
-	};
-	// Trigger delicious window
-	function addDeliciousFromPopup(text) {
-		chrome.tabs.getSelected(null, function(tab) {
-			chrome.extension.sendRequest({
-				type: 'addDelicious',
-				url: tab.url,
-				title: tab.title,
-				notes: text
-			});
-		});
-	};
-    </script>
     <link rel="stylesheet" href="style.css" type="text/css"> 
   </head>
-  <body class="delicious" onload="startPopup()">
+  <body class="delicious">
 	<!-- div class="toolstrip-button" onclick="startPopup()">Save a new Bookmark</div>
 	<div class="toolstrip-button" onclick="window.open('http://del.icio.us/home/')">Bookmarks on Delicious</div>
 	<div class="toolstrip-button" onclick="window.open('http://del.icio.us/inbox/')">Delicious Inbox</div -->
