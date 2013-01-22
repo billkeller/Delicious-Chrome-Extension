@@ -44,7 +44,7 @@ chrome.webRequest.onCompleted.addListener(
 				title = tab.title,
 				tabId = tab.id,
 				windowId = chrome.windows.WINDOW_ID_CURRENT;
-			checkPopup(tab,url,tabId, windowId);
+			checkPopup(tab,url,tabId,windowId);
 		});		
 	},
 	// filters
@@ -59,6 +59,7 @@ chrome.webRequest.onCompleted.addListener(
 function checkPopup(tab,url,tabId) {
 	// console.log('from Delicious Tools popup, ourWindow id: ' + ourWindow + ', our popupId:' + tabId);
 	if (ourWindow == tabId){
+		// console.log('this is our popup, so it\'s safe to close')
 		chrome.tabs.remove(tabId);
 	};
 };

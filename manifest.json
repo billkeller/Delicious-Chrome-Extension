@@ -1,13 +1,13 @@
 {
 	"content_scripts": [
 		{
-			"js": ["addDelicious.js","getSelection.js","options_shortcut.js"],
+			"js": ["addDelicious.js","getSelection.js"],
 			"css": ["style.css"],
 			"matches": ["http://*/*","https://*/*"]
 		}
 	],
 	"name": "Delicious Tools",
-	"version": "1.6",
+	"version": "1.6.1",
 	"manifest_version": 2,
 	"minimum_chrome_version": "17",
 	"content_security_policy": "default-src 'self';   script-src 'self' https://ajax.googleapis.com;   style-src 'self' 'unsafe-inline';   img-src 'self' data: chrome: filesystem:;   connect-src 'self' http: https: chrome-extension:;   frame-src http: https:",
@@ -23,7 +23,8 @@
 		"https://*/",
 		"webRequest",
     	"*://*.delicious.com/api/v1/posts/addoredit*",
-    	"*://*.delicious.com/api/v1/posts/delete*"
+    	"*://*.delicious.com/api/v1/posts/delete*",
+    	"https://ajax.googleapis.com/*"
 
 	],
 	"browser_action": {
@@ -32,7 +33,7 @@
 		
 	},
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": ["background.js","options_shortcut.js"]
 	}
 }
 
