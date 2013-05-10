@@ -30,13 +30,13 @@ body.delicious {
 		font-weight: bold;
 		margin-bottom: 9px;
 		}
-		.options small {font-size: 10px; font-family: verdana;}
-		.message p {padding: 4px;}
-			p.fail {
+		.delicious .options small {font-size: 10px; font-family: verdana;}
+		.delicious .message p {padding: 4px;}
+			.delicious p.fail {
 				background-color: #ff0000;
 				color: #000;
 				}
-			p.success {
+			.delicious p.success {
 				background-color: #ffff99;
 				color: #000;
 				}
