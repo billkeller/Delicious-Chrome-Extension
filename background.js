@@ -122,7 +122,7 @@ addDelicious = function(conf) {
 		title = c.title || doc.title,
 		notes = c.notes || '',
 		w = c.width || 500,
-		h = c.height || 430,
+		h = c.height || 463,
 		deliciousUrl = c.deliciousUrl || "http://delicious.com/save?url=",
 		fullUrl;
 

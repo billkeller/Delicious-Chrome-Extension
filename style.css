@@ -90,3 +90,10 @@ The new Delicious login page
 	margin-left: 5px;
 	}
 #index.login .introMessage fieldset {margin-left: 40px;}
+
+body.modal-open.modal-on .modal-dialog {
+	padding: 0;
+}
+body.modal-open.modal-on .modal {
+	height: 463px;
+}
