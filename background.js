@@ -60,7 +60,9 @@ function checkPopup(tab,url,tabId) {
 	// console.log('from Delicious Tools popup, ourWindow id: ' + ourWindow + ', our popupId:' + tabId);
 	if (ourWindow == tabId){
 		// console.log('this is our popup, so it\'s safe to close')
-		chrome.tabs.remove(tabId);
+		setTimeout(function() {
+			chrome.tabs.remove(tabId);	
+		}, 3000);
 	};
 };
 
@@ -123,7 +125,7 @@ addDelicious = function(conf) {
 		notes = c.notes || '',
 		w = c.width || 500,
 		h = c.height || 463,
-		deliciousUrl = c.deliciousUrl || "http://delicious.com/save?url=",
+		deliciousUrl = c.deliciousUrl || "https://delicious.com/save?v=5&noui&jump=close&url=",
 		fullUrl;
 
 	fullUrl = deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) + '&note=' + encodeURIComponent(notes) + '&v=1.1';
