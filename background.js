@@ -62,7 +62,7 @@ function checkPopup(tab,url,tabId) {
 		// console.log('this is our popup, so it\'s safe to close')
 		setTimeout(function() {
 			chrome.tabs.remove(tabId);	
-		}, 3000);
+		}, 5000);
 	};
 };
 
