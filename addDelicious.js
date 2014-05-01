@@ -1,6 +1,6 @@
 var localSettings = {
-	bookmarkKeyChar: 'D',
-	bookmarkSpecialKey: 'alt'
+	bookmarkKeyChar: "D",
+	bookmarkSpecialKey: "alt"
 };
 
 function getVariableFromLocalStorage(variableName,defaultValue) {
@@ -13,21 +13,21 @@ function getVariableFromLocalStorage(variableName,defaultValue) {
 			// console.log('localSettings.' + variableName + ' not found in localStorage!  ' + response);
 		}
 	}
-	chrome.extension.sendRequest({'action': 'getFromLocalStorage', 'variableName': variableName}, onResponse)
+	chrome.extension.sendRequest({"action": "getFromLocalStorage", "variableName": variableName}, onResponse);
 };
 
-getVariableFromLocalStorage('bookmarkKeyChar', localSettings.bookmarkKeyChar);
-getVariableFromLocalStorage('bookmarkSpecialKey', localSettings.bookmarkSpecialKey);
+getVariableFromLocalStorage("bookmarkKeyChar", localSettings.bookmarkKeyChar);
+getVariableFromLocalStorage("bookmarkSpecialKey", localSettings.bookmarkSpecialKey);
 
 // Listen for key press
 window.addEventListener(
-	'keydown',
+	"keydown",
 	function(e) {
 		if ((e.which == localSettings.bookmarkKeyChar.charCodeAt(0))
 				&& (
-					(localSettings.bookmarkSpecialKey == 'alt' && e.altKey)
-					|| (localSettings.bookmarkSpecialKey == 'ctrl' && e.ctrlKey)
-					|| (localSettings.bookmarkSpecialKey == 'meta' && e.metaKey)
+					(localSettings.bookmarkSpecialKey == "alt" && e.altKey)
+					|| (localSettings.bookmarkSpecialKey == "ctrl" && e.ctrlKey)
+					|| (localSettings.bookmarkSpecialKey == "meta" && e.metaKey)
 				)) {
 			// console.log('pressed '+ localSettings.bookmarkSpecialKey + ' ' + localSettings.bookmarkKeyChar);
 			// prevent the default, doesn't seem to overwrite the windows (Meta) key
@@ -86,7 +86,7 @@ window.addEventListener(
 addDeliciousFromContentScript = function() {
 	var url = document.location.toString(),
 		title = document.title,
-		notes = '',
+		notes = "",
 		notesMaxLength = 1000;
 
 	if (window && window.getSelection) {
@@ -99,7 +99,7 @@ addDeliciousFromContentScript = function() {
 		notes = notes.substring(0, notesMaxLength - 1);
 	}
 	chrome.extension.sendRequest({
-		type: 'addDelicious',
+		type: "addDelicious",
 		url: url,
 		title: title,
 		notes: notes
