@@ -10,22 +10,24 @@
 	<div id="page">
 		<form id="save_options" method="get">
 			<fieldset>
-				<legend>Keyboard Shortcut:</legend>
+				<legend>Options:</legend>
+				<p>Keyboard Shortcut:</p>
 				<select name="bookmarkSpecialKey" id="bookmarkSpecialKey">
 					<option value="alt">Alt</option>
 					<option value="ctrl">Control</option>
 					<option value="meta">Command (Mac)</option>
 				</select>
 				<input type="text" name="bookmarkKeyChar" id="bookmarkKeyChar" value="" size="1" maxlength="1" />
-				<p><input type="submit" value="Save Options" /></p>
-				<div class="message">
 
-				</div>
+				<p><label for="autoClosePopup">Auto-close popup?</label> <input type="checkbox" id="autoClosePopup" name="autoClosePopup" checked="true"></p>
+				<p><input type="submit" value="Save Options" /></p>
+				<div class="message"></div>
 			</fieldset>
 		</form>
 
 		<fieldset>
 				<legend>Release Notes:</legend>
+				<p><strong>Version 1.8 (12/31/2014)</strong>: Adds an option to disable the auto-close popup</p>
 				<p><strong>Version 1.7 (5/1/2014)</strong>: Finally fixes a serious issue where bookmarks were not being saved to your Delicious account unless you saved them twice, or were logged in to Delcious.com in a seperate tab. <a href="http://ghettocooler.net/2014/05/01/delicious-tools-chrome-extension-release-notes-v-1-7/" title="ghettocooler.net">Read More</a>.
 		</fieldset>
 

@@ -1,6 +1,18 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
 		chrome.extension.getBackgroundPage().getSelection(addDeliciousFromPopup);
 });
+function getVariableFromLocalStorage(variableName,defaultValue) {
+	localSettings[variableName] = defaultValue;
+	var onResponse = function (response) {
+		if (response !== null) {
+			localSettings[variableName] = response;
+			console.log('localSettings.' + variableName + ' is set to: ' + response);
+		} else {
+			console.log('localSettings.' + variableName + ' not found in localStorage!  ' + response);
+		}
+	};
+	chrome.extension.sendRequest({"action": "getFromLocalStorage", "variableName": variableName}, onResponse);
+}
 
 function addDeliciousFromPopup(text){
 	chrome.tabs.query({
@@ -41,44 +53,57 @@ chrome.webRequest.onCompleted.addListener(
 			//  the array has only one element
 			var tab = array_of_Tabs[0],
 				url = tab.url,
-				title = tab.title,
+				// title = tab.title,
 				tabId = tab.id,
 				windowId = chrome.windows.WINDOW_ID_CURRENT;
 			checkPopup(tab,url,tabId,windowId);
-		});		
+		});
 	},
 	// filters
 	{
-		urls:[
+		urls: [
 			"*://*.delicious.com/api/v1/posts/addoredit*",
 			"*://*.delicious.com/api/v1/posts/delete*"
 		]
 	}
 );
 
-function checkPopup(tab,url,tabId) {
-	// console.log('from Delicious Tools popup, ourWindow id: ' + ourWindow + ', our popupId:' + tabId);
-	if (ourWindow == tabId){
-		// console.log('this is our popup, so it\'s safe to close')
-		setTimeout(function() {
-			chrome.tabs.remove(tabId);	
-		}, 5000);
-	};
-};
+function checkPopup(tab, url, tabId) {
+	var ourWindow;
+	console.log("from Delicious Tools popup, ourWindow id: " + ourWindow + ", our popupId:" + tabId);
+	if (ourWindow === tabId){
+		console.log("this is our popup, so it's safe to close");
+		if(localStorage.getItem("autoClosePopup")) {
+			var autoClosePopup_stored = localStorage.getItem("autoClosePopup");
+			if (autoClosePopup_stored === "false") {
+
+			} else {
+				setTimeout(function() {
+					chrome.tabs.remove(tabId);
+				}, 5000);		
+			}
+		} else {
+			setTimeout(function() {
+				chrome.tabs.remove(tabId);
+			}, 5000);
+		}
+		
+	}
+}
 
 function getOurWindow(){
 	chrome.tabs.getSelected(window.id,
-		function (response){
-			ourWindow = response.id
+		function(response) {
+			ourWindow = response.id;
 			// console.log('The window Delicious Tools created has an id of: ' + ourWindow);
 		});
-};
+}
 
 chrome.extension.onRequest.addListener(
 	function(message, sender, sendResponse) {
 		if (message.action && sender.tab) {
 			switch (message.action) {
-				case 'getFromLocalStorage':
+				case "getFromLocalStorage":
 					// console.log(message.variableName + ': ' + localStorage [message.variableName]);
 					if (localStorage[message.variableName] !== null) {
 						sendResponse(localStorage[message.variableName]);
@@ -90,10 +115,11 @@ chrome.extension.onRequest.addListener(
 );
 
 var selection_callbacks = [];
+
 function getSelection(callback) {
 	selection_callbacks.push(callback);
 	chrome.tabs.executeScript(null, { file: "getSelection.js" });
-};
+}
 
 chrome.extension.onRequest.addListener(function (request) {
 	// this listener is activated be it from shortcut or be it from popup
@@ -101,7 +127,7 @@ chrome.extension.onRequest.addListener(function (request) {
 	// console.log(callback);
 	// only our addDeliciousFromPopup needs this, otherwise it's undefined
 	// There's probably a better way to do this...
-	if (typeof callback != 'undefined') {
+	if (typeof callback !== "undefined") {
 		callback(request);
 	}
 });
@@ -122,11 +148,12 @@ addDelicious = function(conf) {
 		doc = c.document || document,
 		url = c.url || doc.location,
 		title = c.title || doc.title,
-		notes = c.notes || '',
+		notes = c.notes || "",
 		w = c.width || 500,
 		h = c.height || 463,
 		deliciousUrl = c.deliciousUrl || "https://delicious.com/save?v=5&noui&jump=close&url=",
-		fullUrl;
+		fullUrl,
+		autoClose = c.autoClose || true;
 
 	fullUrl = deliciousUrl + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) + '&note=' + encodeURIComponent(notes) + '&v=1.1';
 	// Chrome's API for creating windows (rather than simple window.open)
@@ -134,11 +161,10 @@ addDelicious = function(conf) {
 		url: fullUrl,
 		width: w,
 		height: h,
-		type: 'popup'
+		type: "popup"
 		}, function() {
 			chrome.windows.getCurrent(function(window) {
 				getOurWindow();
-			});				
+			});
 	});
-	
 };
