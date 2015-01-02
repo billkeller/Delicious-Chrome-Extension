@@ -1,6 +1,7 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
 		chrome.extension.getBackgroundPage().getSelection(addDeliciousFromPopup);
 });
+
 function getVariableFromLocalStorage(variableName,defaultValue) {
 	localSettings[variableName] = defaultValue;
 	var onResponse = function (response) {
@@ -17,7 +18,7 @@ function getVariableFromLocalStorage(variableName,defaultValue) {
 function addDeliciousFromPopup(text){
 	chrome.tabs.query({
 			active: true,                              // Select active tabs
-			windowId: chrome.windows.WINDOW_ID_CURRENT, // In the current window
+			windowId: chrome.windows.WINDOW_ID_CURRENT // In the current window
 
 		}, function(array_of_Tabs) {
 			// Since there can only be one active tab in one active window, 
@@ -27,6 +28,7 @@ function addDeliciousFromPopup(text){
 				title = tab.title,
 				notes = text,
 				notesMaxLength = 1000;
+			
 			if (notes && notes.length > notesMaxLength) {
 				notes = notes.substring(0, notesMaxLength - 1);
 			}
@@ -46,10 +48,10 @@ chrome.webRequest.onCompleted.addListener(
 		// we also need to make sure this is OUR popup, as opposed to the live delicious.com
 		chrome.tabs.query({
 			active: true,                              // Select active tabs
-			windowId: chrome.windows.WINDOW_ID_CURRENT, // In the current window
+			windowId: chrome.windows.WINDOW_ID_CURRENT // In the current window
 
 		}, function(array_of_Tabs) {
-			// Since there can only be one active tab in one active window, 
+			// Since there can only be one active tab in one active window,
 			//  the array has only one element
 			var tab = array_of_Tabs[0],
 				url = tab.url,
@@ -69,26 +71,28 @@ chrome.webRequest.onCompleted.addListener(
 );
 
 function checkPopup(tab, url, tabId) {
-	var ourWindow;
-	// console.log("from Delicious Tools popup, ourWindow id: " + ourWindow + ", our popupId:" + tabId);
-	if (ourWindow === tabId){
-		// console.log("this is our popup, so it's safe to close");
-		if(localStorage.getItem("autoClosePopup")) {
-			var autoClosePopup_stored = localStorage.getItem("autoClosePopup");
-			if (autoClosePopup_stored === "false") {
-
-			} else {
-				setTimeout(function() {
-					chrome.tabs.remove(tabId);
-				}, 5000);		
-			}
-		} else {
-			setTimeout(function() {
-				chrome.tabs.remove(tabId);
-			}, 5000);
-		}
-		
-	}
+	// var ourWindow;
+	// console.log("in checkPopup: ourWindow id: " + ourWindow + ", our popupId:" + tabId);
+	// if (ourWindow === tabId){
+	// 	// console.log("this is our popup, so it's safe to close");
+	// 	if(localStorage.getItem("autoClosePopup")) {
+	// 		var autoClosePopup_stored = localStorage.getItem("autoClosePopup");
+	// 		if (autoClosePopup_stored === "false") {
+	// 			console.log("localstorage autoClosePopup is set to false. We shall NOT close this window.");
+	// 		} else {
+	// 			console.log("timeout is set when inside autoClosePopup");
+	// 			// setTimeout(function() {
+	// 			// 	chrome.tabs.remove(tabId);
+	// 			// }, 5000);
+	// 		}
+	// 	// Default to closing our window after save
+	// 	} else {
+	// 		console.log("timeout is set when NOT inside autoClosePopup");
+	// 		// setTimeout(function() {
+	// 		// 	chrome.tabs.remove(tabId);
+	// 		// }, 5000);
+	// 	}
+	// }
 }
 
 function getOurWindow(){
@@ -151,7 +155,7 @@ addDelicious = function(conf) {
 		notes = c.notes || "",
 		w = c.width || 500,
 		h = c.height || 463,
-		deliciousUrl = c.deliciousUrl || "https://delicious.com/save?v=5&noui&jump=close&url=",
+		deliciousUrl = c.deliciousUrl || "https://delicious.com/save?v=5&noui&url=",
 		fullUrl,
 		autoClose = c.autoClose || true;
 
