@@ -6,9 +6,9 @@ function getVariableFromLocalStorage(variableName,defaultValue) {
 	var onResponse = function (response) {
 		if (response !== null) {
 			localSettings[variableName] = response;
-			console.log('localSettings.' + variableName + ' is set to: ' + response);
+			// console.log('localSettings.' + variableName + ' is set to: ' + response);
 		} else {
-			console.log('localSettings.' + variableName + ' not found in localStorage!  ' + response);
+			// console.log('localSettings.' + variableName + ' not found in localStorage!  ' + response);
 		}
 	};
 	chrome.extension.sendRequest({"action": "getFromLocalStorage", "variableName": variableName}, onResponse);
@@ -29,15 +29,15 @@ function addDeliciousFromPopup(text){
 				notesMaxLength = 1000;
 			if (notes && notes.length > notesMaxLength) {
 				notes = notes.substring(0, notesMaxLength - 1);
-			}					
-			
+			}
+
 			addDelicious({
 				url: url,
 				title: title,
 				notes: notes
 			});
 		});
-};
+}
 
 chrome.webRequest.onCompleted.addListener(
 	function(details){
@@ -70,9 +70,9 @@ chrome.webRequest.onCompleted.addListener(
 
 function checkPopup(tab, url, tabId) {
 	var ourWindow;
-	console.log("from Delicious Tools popup, ourWindow id: " + ourWindow + ", our popupId:" + tabId);
+	// console.log("from Delicious Tools popup, ourWindow id: " + ourWindow + ", our popupId:" + tabId);
 	if (ourWindow === tabId){
-		console.log("this is our popup, so it's safe to close");
+		// console.log("this is our popup, so it's safe to close");
 		if(localStorage.getItem("autoClosePopup")) {
 			var autoClosePopup_stored = localStorage.getItem("autoClosePopup");
 			if (autoClosePopup_stored === "false") {

@@ -57,7 +57,7 @@ $(document).ready(function() {
 		if(!localStorage.getItem("bookmarkKeyChar")) {
 			$('.message').html('<p class=\"fail\">Please enter a Keyboard shortcut</p>');
 		} else {
-			$('.message').html('<p class=\"success\">Keyboard shortcut now set to <strong>' + localStorage.getItem("bookmarkSpecialKey") + ' ' + localStorage.getItem('bookmarkKeyChar') + '</strong><br>Auto-close popup set to <strong>' + localStorage.getItem("autoClosePopup") + '</strong><br /><small>Open tabs require a refresh</small>');
+			$('.message').html('<p class=\"success\">Keyboard shortcut now set to <strong>' + localStorage.getItem("bookmarkSpecialKey") + ' ' + localStorage.getItem('bookmarkKeyChar') + '</strong><br>Auto-close save window set to <strong>' + localStorage.getItem("autoClosePopup") + '</strong><br /><small>Open tabs require a refresh</small>');
 		}
 
 		return false;

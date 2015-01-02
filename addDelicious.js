@@ -31,7 +31,7 @@ window.addEventListener(
 					|| (localSettings.bookmarkSpecialKey === "ctrl" && e.ctrlKey)
 					|| (localSettings.bookmarkSpecialKey === "meta" && e.metaKey)
 				)) {
-			console.log('pressed '+ localSettings.bookmarkSpecialKey + ' ' + localSettings.bookmarkKeyChar);
+			// console.log('pressed '+ localSettings.bookmarkSpecialKey + ' ' + localSettings.bookmarkKeyChar);
 			// prevent the default, doesn't seem to overwrite the windows (Meta) key
 			e.preventDefault();
 			addDeliciousFromContentScript();
