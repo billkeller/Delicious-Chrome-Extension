@@ -70,4 +70,32 @@ $(document).ready(function() {
 		}
 		$(this).val($(this).val().toUpperCase());
 	});
+
+	function commaSeparateNumber(val){
+		while (/(\d+)(\d{3})/.test(val.toString())){
+			val = val.toString().replace(/(\d+)(\d{3})/, "$1" + "," + "$2");
+		}
+		return val;
+	}
+
+	// Testing pulling in all tags:
+	$.get( "https://delicious.com/v1/tags/get", function(data) {
+		// console.log(data);
+		var tagCount = $(data).find("tag").length,
+			tags = $(data).find("tag");
+		console.log(data);
+
+		// Update DOM
+		$("span.tag-count").html(commaSeparateNumber(tagCount));
+
+		tags.each(function(){
+			var thisCount = $(this).attr("count");
+			if (thisCount >= 100) {
+				var tagPopular = $(this).attr("tag"),
+					thisCountFormatted = commaSeparateNumber(thisCount),
+					tagPopularFormatted = "<a href='https://delicious.com/soupenvy/" + tagPopular + "'>" + tagPopular + "</a> (" + thisCountFormatted + "), ";
+				$("span.tag-popular").append(tagPopularFormatted);
+			}
+		});
+	});
 });
