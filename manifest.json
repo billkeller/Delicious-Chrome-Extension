@@ -7,7 +7,7 @@
 		}
 	],
 	"name": "Delicious Tools",
-	"version": "1.8",
+	"version": "1.9",
 	"manifest_version": 2,
 	"minimum_chrome_version": "17",
 	"content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
