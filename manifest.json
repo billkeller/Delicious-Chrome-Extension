@@ -16,14 +16,14 @@
 	},
 	"options_page": "options_shortcut.html",
 	"permissions": [
-		"http://delicious.com/*",
-		"http://feeds.delicious.com/*",
+		"http://del.icio.us/*",
+		"http://feeds.del.icio.us/*",
 		"tabs",
 		"http://*/",
 		"https://*/",
 		"webRequest",
-    	"*://*.delicious.com/api/v1/posts/addoredit*",
-    	"*://*.delicious.com/api/v1/posts/delete*",
+    	"*://*.del.icio.us/api/v1/posts/addoredit*",
+    	"*://*.del.icio.us/api/v1/posts/delete*",
     	"https://ajax.googleapis.com/*"
 
 	],
