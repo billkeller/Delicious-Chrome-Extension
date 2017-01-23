@@ -6,34 +6,33 @@
 			"matches": ["http://*/*","https://*/*"]
 		}
 	],
-	"name": "Delicious Tools",
-	"version": "1.8",
+	"name": "Del.icio.us Tools",
+	"version": "1.9",
 	"manifest_version": 2,
 	"minimum_chrome_version": "17",
 	"content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
-	"description": "Quick access to saving Delicious bookmarks. Customizable keyboard shortcut. Selected text populates your notes field.",
+	"description": "Quick access to saving Del.icio.us bookmarks. Customizable keyboard shortcut. Selected text populates your notes field.",
 	"icons" : {"48": "delicious48.png", "128": "delicious128.png"
 	},
 	"options_page": "options_shortcut.html",
 	"permissions": [
-		"http://delicious.com/*",
-		"http://feeds.delicious.com/*",
+		"http://del.icio.us/*",
+		"http://feeds.del.icio.us/*",
 		"tabs",
 		"http://*/",
 		"https://*/",
 		"webRequest",
-    	"*://*.delicious.com/api/v1/posts/addoredit*",
-    	"*://*.delicious.com/api/v1/posts/delete*",
+    	"*://*.del.icio.us/api/v1/posts/addoredit*",
+    	"*://*.del.icio.us/api/v1/posts/delete*",
     	"https://ajax.googleapis.com/*"
 
 	],
 	"browser_action": {
-		"default_title": "Delicious",
+		"default_title": "Del.icio.us",
 		"default_icon": "delicious.png"
-		
+
 	},
 	"background": {
 		"scripts": ["background.js","options_shortcut.js"]
 	}
 }
-

@@ -45,7 +45,7 @@ chrome.webRequest.onCompleted.addListener(
 	function(details){
 		// We're only here IF the XHR request is the URL found under filters
 		// console.log("resource", details.url);
-		// we also need to make sure this is OUR popup, as opposed to the live delicious.com
+		// we also need to make sure this is OUR popup, as opposed to the live del.icio.us
 		chrome.tabs.query({
 			active: true,                              // Select active tabs
 			windowId: chrome.windows.WINDOW_ID_CURRENT // In the current window
@@ -64,8 +64,8 @@ chrome.webRequest.onCompleted.addListener(
 	// filters
 	{
 		urls: [
-			"*://*.delicious.com/api/v1/posts/addoredit*",
-			"*://*.delicious.com/api/v1/posts/delete*"
+			"*://*.del.icio.us/api/v1/posts/addoredit*",
+			"*://*.del.icio.us/api/v1/posts/delete*"
 		]
 	}
 );
@@ -155,7 +155,7 @@ addDelicious = function(conf) {
 		notes = c.notes || "",
 		w = c.width || 500,
 		h = c.height || 463,
-		deliciousUrl = c.deliciousUrl || "https://delicious.com/save?v=5&noui&url=",
+		deliciousUrl = c.deliciousUrl || "https://del.icio.us/save?v=5&noui&url=",
 		fullUrl,
 		autoClose = c.autoClose || true;
 
